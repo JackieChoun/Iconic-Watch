@@ -7,7 +7,7 @@ import { ref } from 'vue';
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
     { title: 'Marques', href: route('marques.index') },
-    { title: 'Création', href: route('marques.index') },
+    { title: 'Création marque', href: route('marques.index') },
 ];
 
 const form = useForm({
@@ -58,7 +58,7 @@ function submit() {
     <Head title="Création Marques" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="mx-auto mt-6 max-w-xl rounded-xl bg-white p-6 shadow">
+        <div class="mx-auto mt-6 max-w-xl rounded-xl p-6 shadow">
             <h1 class="mb-6 text-2xl font-bold">Création d'une marque</h1>
 
             <form @submit.prevent="submit" enctype="multipart/form-data" class="space-y-6">
@@ -114,7 +114,7 @@ function submit() {
                     <button
                         type="submit"
                         :disabled="form.processing"
-                        class="rounded bg-blue-600 px-4 py-2 font-semibold text-white shadow hover:bg-blue-700 disabled:opacity-50"
+                        class="rounded bg-blue-700 px-4 py-2 font-semibold text-white shadow hover:bg-blue-800 disabled:opacity-50"
                     >
                         Créer la marque
                     </button>

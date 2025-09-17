@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Film, Folder, Home, Link as LinkIcon, User, Watch } from 'lucide-vue-next';
+import { BookOpen, Crown, Film, Folder, Home, Link as LinkIcon, User, Watch } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -17,6 +17,11 @@ const mainNavItems: NavItem[] = [
     {
         title: 'Marques',
         href: route('marques.index'),
+        icon: Crown,
+    },
+    {
+        title: 'Montres',
+        href: route('montres.index'),
         icon: Watch,
     },
     {

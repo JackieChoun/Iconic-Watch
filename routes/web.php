@@ -9,12 +9,14 @@ use App\Http\Controllers\{ IndexController, FilmsController, MarqueController };
 // })->name('home');
 
 Route::get('dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Dashboard', [
+        'user' => Auth::user(),
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/', [IndexController::class, 'index'])->name('accueil');
 
-// route categorie films et dernier ajout dans l'accueil
+// Route categorie films et dernier ajout dans l'accueil
 Route::controller(FilmsController::class)
     ->prefix('films')
     ->group(function () {
@@ -34,7 +36,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::resource('marques', App\Http\Controllers\Admin\MarqueController::class);
     });
-    
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+        Route::resource('montres', App\Http\Controllers\Admin\MontreController::class);
+    }); 
 
 
 require __DIR__.'/settings.php';

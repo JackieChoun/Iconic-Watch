@@ -10,20 +10,12 @@ use Inertia\Inertia;
 
 class MontreController extends Controller
 {
-    // public function index()
-    // {
-    //     $montres = Montre::with('marque')->get();
-
-    //     return Inertia::render('admin/Montres', [
-    //         'montres' => $montres,
-    //     ]);
-    // }
     public function index()
     {
         $marques = Marque::with('montres')->get();
 
         return Inertia::render('admin/Montres', [
-            'marques' => $marques,
+            'marques' => $marques, 'title' => 'Montres'
         ]);
     }
 
@@ -31,7 +23,7 @@ class MontreController extends Controller
     {
         $marques = Marque::all();
         return Inertia::render('admin/MontreCreate', [
-            'marques' => $marques,
+            'marques' => $marques, 'title' => 'Création montre'
         ]);
     }
 
@@ -55,7 +47,7 @@ class MontreController extends Controller
             'id_marque' => $validated['id_marque'],
         ]);
 
-        return redirect()->route('montres.index')->with('success', 'Montre ajoutée avec succès.');
+        return redirect()->route('admin.montres.index')->with('success', 'Montre ajoutée avec succès.');
     }
 
     public function edit(Montre $montre)
@@ -86,16 +78,16 @@ class MontreController extends Controller
         $montre->id_marque = $validated['id_marque'];
         $montre->save();
 
-        return redirect()->route('montres.index')->with('success', 'Montre mise à jour.');
+        return redirect()->route('admin.montres.index')->with('success', 'Montre mise à jour.');
     }
 
     public function destroy(Montre $montre)
     {
-        if ($montre->image_montre) {
+        if ($montre->image_montre && Storage::disk('public')->exists($montre->image_montre)) {
             Storage::disk('public')->delete($montre->image_montre);
         }
 
         $montre->delete();
-        return redirect()->route('montres.index')->with('success', 'Montre supprimée.');
+        return redirect()->route('admin.montres.index')->with('success', 'Montre supprimée.');
     }
 }

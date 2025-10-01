@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_commentaires');
             $table->string('contenu_commentaire', 255);
             $table->date('date_commentaire');
-            $table->foreignId('id_article')->constrained('article_films', 'id_article')->onDelete('cascade');
+            $table->foreignId('id_article')->constrained('articles', 'id_article')->onDelete('cascade');
             $table->foreignId('id')->constrained('users')->onDelete('cascade');
         });
     }

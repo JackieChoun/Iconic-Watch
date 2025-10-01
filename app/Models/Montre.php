@@ -11,7 +11,7 @@ class Montre extends Model
 
     protected $table = 'montres';
     protected $primaryKey = 'id_montre';
-    public $timestamps = false; // pas de created_at / updated_at
+    public $timestamps = false;
 
     protected $fillable = [
         'image_montre',
@@ -23,5 +23,12 @@ class Montre extends Model
     {
         return $this->belongsTo(Marque::class, 'id_marque');
     }
+
+    // 🔗 Une montre peut être liée à plusieurs articles
+    public function articles()
+    {
+        return $this->hasMany(Article::class, 'id_montre');
+    }
 }
+
 

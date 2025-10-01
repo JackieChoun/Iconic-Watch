@@ -26,38 +26,38 @@ class MarqueController extends Controller
         return $marque;
         });
         return Inertia::render('admin/Marques', [
-            'marques' => $marques
+            'marques' => $marques, 'title' => 'Marques'
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('admin/MarqueCreate');
+        return Inertia::render('admin/MarqueCreate', ['title' => 'Création marques']);
     }
 
     public function store(Request $request)
-{
-    
-    $validated = $request->validate([
-        'nom_marque' => 'required|string|max:255',
-        'photo' => 'nullable|mimes:jpg,jpeg,png,svg,webp|max:3048',
-        'logo' => 'nullable|mimes:jpg,jpeg,png,svg,webp|max:2048',
-    ]);
+    {
+        
+        $validated = $request->validate([
+            'nom_marque' => 'required|string|max:255',
+            'photo' => 'nullable|mimes:jpg,jpeg,png,svg,webp|max:3048',
+            'logo' => 'nullable|mimes:jpg,jpeg,png,svg,webp|max:2048',
+        ]);
 
-    // Sauvegarde des fichiers si présents
-    if ($request->hasFile('photo')) {
-        $validated['photo_marque'] = $request->file('photo')->store('marques/photos', 'public');
+        // Sauvegarde des fichiers si présents
+        if ($request->hasFile('photo')) {
+            $validated['photo_marque'] = $request->file('photo')->store('marques/photos', 'public');
+        }
+
+        if ($request->hasFile('logo')) {
+            $validated['logo_marque'] = $request->file('logo')->store('marques/logos', 'public');
+        }
+
+        // Création
+        Marque::create($validated);
+
+        return redirect()->route('admin.marques.index')->with('success', 'Marque créée avec succès !');
     }
-
-    if ($request->hasFile('logo')) {
-        $validated['logo_marque'] = $request->file('logo')->store('marques/logos', 'public');
-    }
-
-    // Création
-    Marque::create($validated);
-
-    return redirect()->route('marques.index')->with('success', 'Marque créée avec succès !');
-}
 
 
 
@@ -94,23 +94,22 @@ class MarqueController extends Controller
         $marque->nom_marque = $validated['nom_marque'];
         $marque->save();
 
-        return redirect()->route('marques.index')->with('success', 'Marque mise à jour.');
+        return redirect()->route('admin.marques.index')->with('success', 'Marque mise à jour.');
 }
 
 
     public function destroy(Marque $marque)
     {
-        if ($marque->photo_marque) {
+        if ($marque->photo_marque && Storage::disk('public')->exists($marque->photo_marque)) {
             Storage::disk('public')->delete($marque->photo_marque);
         }
 
-        if ($marque->logo_marque) {
+        if ($marque->logo_marque && Storage::disk('public')->exists($marque->logo_marque)) {
             Storage::disk('public')->delete($marque->logo_marque);
         }
 
         $marque->delete();
 
-        return redirect()->route('marques.index')->with('success', 'Marque supprimée.');
+        return redirect()->route('admin.marques.index')->with('success', 'Marque supprimée.');
     }
-
 }

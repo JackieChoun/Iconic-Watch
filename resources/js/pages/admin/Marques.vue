@@ -2,12 +2,12 @@
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, router } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Marques', href: route('marques.index') },
+    { title: 'Marques', href: route('admin.marques.index') },
 ];
 
 const props = defineProps<{
@@ -28,7 +28,7 @@ function openDialog(marqueId: number) {
 
 function deleteMarque() {
     if (id.value) {
-        router.delete(route('marques.destroy', { marque: id.value }), {
+        router.delete(route('admin.marques.destroy', { marque: id.value }), {
             onSuccess: () => closeDialog(),
             onError: (error) => console.error('Erreur lors de la suppression:', error),
         });
@@ -37,12 +37,10 @@ function deleteMarque() {
 </script>
 
 <template>
-    <Head title="Marques (Admin)" />
-
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="mx-4 my-4 flex items-center justify-between">
             <h1 class="text-2xl font-bold">Liste des marques</h1>
-            <Link href="/admin/marques/create">
+            <Link :href="route('admin.marques.create')">
                 <button class="m-4 cursor-pointer rounded bg-blue-800 px-4 py-2 font-bold text-white hover:bg-blue-900">Ajouter une marque</button>
             </Link>
         </div>

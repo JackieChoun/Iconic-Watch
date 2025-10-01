@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, useForm } from '@inertiajs/vue3';
+import { useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Marques', href: route('marques.index') },
-    { title: 'Création marque', href: route('marques.index') },
+    { title: 'Marques', href: route('admin.marques.index') },
+    { title: 'Création marque', href: route('admin.marques.index') },
 ];
 
 const form = useForm({
@@ -43,7 +43,7 @@ function handleLogoChange(e: Event) {
 }
 
 function submit() {
-    form.post(route('marques.store'), {
+    form.post(route('admin.marques.store'), {
         forceFormData: true,
         onSuccess: () => {
             // Nettoyage des previews après création
@@ -55,8 +55,6 @@ function submit() {
 </script>
 
 <template>
-    <Head title="Création Marques" />
-
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="mx-auto mt-6 max-w-xl rounded-xl p-6 shadow">
             <h1 class="mb-6 text-2xl font-bold">Création d'une marque</h1>

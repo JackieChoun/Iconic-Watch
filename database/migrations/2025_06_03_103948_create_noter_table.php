@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('noter', function (Blueprint $table) {
             $table->foreignId('id_montre')->constrained('montres', 'id_montre')->onDelete('cascade');
-            $table->foreignId('id_article')->constrained('article_films', 'id_article')->onDelete('cascade');
+            $table->foreignId('id_article')->constrained('articles', 'id_article')->onDelete('cascade');
             $table->integer('note_montre');
         
             $table->primary(['id_montre', 'id_article']);

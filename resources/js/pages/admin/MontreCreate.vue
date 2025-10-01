@@ -4,8 +4,8 @@ import { Head, useForm } from '@inertiajs/vue3';
 
 const breadcrumbs = [
     { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Montres', href: route('montres.index') },
-    { title: 'Création montre', href: route('montres.create') },
+    { title: 'Montres', href: route('admin.montres.index') },
+    { title: 'Création montre', href: route('admin.montres.create') },
 ];
 
 const props = defineProps(['marques']);
@@ -17,7 +17,7 @@ const form = useForm({
 });
 
 function createMontre() {
-    form.post(route('montres.store'), {
+    form.post(route('admin.montres.store'), {
         forceFormData: true, // indispensable pour l’upload
     });
 }

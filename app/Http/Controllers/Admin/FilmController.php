@@ -27,7 +27,7 @@ class FilmController extends Controller
         });
 
         return Inertia::render('admin/Films', [
-            'films' => $filmsWithTitles
+            'films' => $filmsWithTitles, 'title' => 'Films'
         ]);
     }
 
@@ -44,7 +44,7 @@ class FilmController extends Controller
 
         Film::create($request->only('tmdb_id'));
 
-        return redirect()->route('films.index')->with('success', 'Film ajouté.');
+        return redirect()->route('admin.films.index')->with('success', 'Film ajouté.');
     }
 
     public function edit(Film $film)
@@ -61,6 +61,6 @@ class FilmController extends Controller
     {
         $film->delete();
 
-        return redirect()->route('films.index')->with('success', 'Film supprimé.');
+        return redirect()->route('admin.films.index')->with('success', 'Film supprimé.');
     }
 }

@@ -28,7 +28,7 @@ watch(
 
 const breadcrumbs: BreadcrumbItem[] = [
     { title: 'Dashboard', href: '/dashboard' },
-    { title: 'Films', href: route('films.index') },
+    { title: 'Films', href: route('admin.films.index') },
 ];
 
 const form = useForm({
@@ -45,7 +45,7 @@ function submitForm() {
         return;
     }
 
-    form.post(route('films.store'), {
+    form.post(route('admin.films.store'), {
         preserveScroll: true,
         onSuccess: () => {
             form.reset('tmdb_id'); // vide le champ après ajout
@@ -56,7 +56,7 @@ function submitForm() {
 // Fonction suppression
 function deleteFilm(id: number) {
     if (confirm('Confirmer la suppression ?')) {
-        router.delete(route('films.destroy', id));
+        router.delete(route('admin.films.destroy', id));
     }
 }
 </script>

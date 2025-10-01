@@ -7,7 +7,7 @@ const isActive = (name) => route().current(name);
 </script>
 
 <template>
-    <header class="sticky top-0 z-20 bg-[#fdfdfd]">
+    <header class="sticky top-0 z-20 container bg-[#fdfdfd]">
         <div class="flex items-center justify-between">
             <!-- Logo + Titre -->
             <div class="flex items-center">
@@ -57,7 +57,7 @@ const isActive = (name) => route().current(name);
                                 <Link
                                     :href="route('marques')"
                                     class="rounded px-5 py-3 md:hover:bg-[gainsboro]"
-                                    :class="{ 'underline underline-offset-5': isActive('marque') }"
+                                    :class="{ 'underline underline-offset-5': isActive('marques') }"
                                     >Marques</Link
                                 >
                             </li>

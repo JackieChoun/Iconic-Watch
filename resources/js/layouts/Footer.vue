@@ -1,12 +1,12 @@
 <template>
     <footer class="border-t border-black py-4">
-        <div class="flex justify-evenly">
+        <div class="flex flex-col justify-evenly text-center md:flex-row">
             <a href="CGU.html" target="_blank" class="underline">CGU</a>
-            <a href="mailto:ydv311@hotmail.fr" target="_blank" title="Mon mail" class="underline">Contact</a>
+            <a href="mailto:ydv311@hotmail.fr" target="_blank" title="Mon mail" class="py-2 underline md:py-0">Contact</a>
             <a href="#haut" class="underline">Haut de page</a>
 
             <!-- Switch Dark Mode -->
-            <label for="darkMode" class="relative inline-block h-[34px] w-[60px] cursor-pointer">
+            <label for="darkMode" class="hidden h-[34px] w-[60px] cursor-pointer md:relative md:inline-block">
                 <input type="checkbox" id="darkMode" name="darkMode" class="peer h-0 w-0 opacity-0" />
                 <span class="absolute inset-0 rounded-full bg-gray-300 transition-colors duration-400 peer-checked:bg-neutral-800"></span>
                 <span

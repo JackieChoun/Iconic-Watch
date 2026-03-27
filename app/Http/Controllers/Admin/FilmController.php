@@ -12,28 +12,13 @@ class FilmController extends Controller
 {
     public function index()
     {
-        $films = Film::orderBy('id')->get(['id', 'tmdb_id']);
-
-        $apiKey = env('API_KEY');
-        abort_unless($apiKey, 500, 'Missing API key');
-
-        $filmsWithTitles = $films->map(function ($film) use ($apiKey) {
-            $response = Http::get("https://api.themoviedb.org/3/movie/{$film->tmdb_id}", [
-                'api_key' => $apiKey,
-                'language' => 'fr-FR',
-            ]);
-            $film->title = $response->successful() ? $response->json('title') : 'Titre indisponible';
-            return $film;
-        });
+        // On récupère directement les titres stockés
+        $films = Film::orderBy('id')->get(['id', 'tmdb_id', 'title']);
 
         return Inertia::render('admin/Films', [
-            'films' => $filmsWithTitles, 'title' => 'Films'
+            'films' => $films,
+            'title' => 'Films'
         ]);
-    }
-
-    public function create()
-    {
-        
     }
 
     public function store(Request $request)
@@ -42,19 +27,23 @@ class FilmController extends Controller
             'tmdb_id' => ['required', 'integer', 'unique:films,tmdb_id'],
         ]);
 
-        Film::create($request->only('tmdb_id'));
+        // Récupérer le titre depuis TMDB au moment de l'ajout
+        $apiKey = env('API_KEY');
+        abort_unless($apiKey, 500, 'Missing API key');
+
+        $response = Http::get("https://api.themoviedb.org/3/movie/{$request->tmdb_id}", [
+            'api_key' => $apiKey,
+            'language' => 'fr-FR',
+        ]);
+
+        $title = $response->successful() ? $response->json('title') : 'Titre indisponible';
+
+        Film::create([
+            'tmdb_id' => $request->tmdb_id,
+            'title'   => $title,
+        ]);
 
         return redirect()->route('admin.films.index')->with('success', 'Film ajouté.');
-    }
-
-    public function edit(Film $film)
-    {
-        
-    }
-
-    public function update(Request $request, Film $film)
-    {
-        
     }
 
     public function destroy(Film $film)

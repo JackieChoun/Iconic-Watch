@@ -39,9 +39,9 @@ onMounted(async () => {
 
 <template>
     <SiteLayout>
-        <div class="container pt-4">
+        <div class="wrapper pt-4">
             <!-- Bouton retour -->
-            <a href="javascript:history.back()" class="absolute z-10 ml-50 hidden text-4xl underline lg:block"> Retour </a>
+            <a href="javascript:history.back()" class="absolute z-10 ml-50 hidden text-4xl underline lg:block">← Retour </a>
 
             <!-- Titre -->
             <h2 class="mb-8 text-center text-6xl font-bold">FILMS</h2>
@@ -70,7 +70,7 @@ onMounted(async () => {
             <!-- Liste filtrée -->
             <section id="articleFilm" class="flex flex-col">
                 <div v-for="film in filteredFilms" :key="film.id" class="my-[1%] mr-[20%] flex items-start">
-                    <Link :href="`${formatTitle(film.title)}Controller.php`">
+                    <Link :href="route('articles.film', { tmdbId: film.id, slug: formatTitle(film.title) })">
                         <img
                             :src="`https://image.tmdb.org/t/p/w300${film.poster_path}`"
                             :alt="`Affiche de ${film.title}`"

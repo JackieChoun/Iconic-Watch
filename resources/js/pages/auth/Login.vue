@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import AuthBase from '@/layouts/AuthLayout.vue';
+import SiteLayout from '@/layouts/SiteLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
-import { LoaderCircle } from 'lucide-vue-next';
 
 defineProps<{
     status?: string;
@@ -28,66 +23,74 @@ const submit = () => {
 </script>
 
 <template>
-    <AuthBase title="Log in to your account" description="Enter your email and password below to log in">
-        <Head title="Log in" />
+    <SiteLayout>
+        <Head title="Connexion" />
 
-        <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">
-            {{ status }}
-        </div>
+        <div class="wrapper py-25">
+            <div class="mx-auto max-w-md rounded-xl border bg-white p-8 shadow">
+                <h1 class="text-3xl font-bold">Connexion</h1>
+                <p class="mt-2 text-gray-600">Entrez votre email et votre mot de passe.</p>
 
-        <form @submit.prevent="submit" class="flex flex-col gap-6">
-            <div class="grid gap-6">
-                <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
-                    <Input
-                        id="email"
-                        type="email"
-                        required
-                        autofocus
-                        :tabindex="1"
-                        autocomplete="email"
-                        v-model="form.email"
-                        placeholder="email@example.com"
-                    />
-                    <InputError :message="form.errors.email" />
+                <div v-if="status" class="mt-4 rounded bg-green-50 p-3 text-sm font-medium text-green-700">
+                    {{ status }}
                 </div>
 
-                <div class="grid gap-2">
-                    <div class="flex items-center justify-between">
-                        <Label for="password">Password</Label>
-                        <TextLink v-if="canResetPassword" :href="route('password.request')" class="text-sm" :tabindex="5">
-                            Forgot password?
-                        </TextLink>
+                <form @submit.prevent="submit" class="mt-8 flex flex-col gap-6">
+                    <div class="grid gap-2">
+                        <label for="email" class="text-sm font-medium">Email</label>
+                        <input
+                            id="email"
+                            type="email"
+                            required
+                            autofocus
+                            :tabindex="1"
+                            autocomplete="email"
+                            v-model="form.email"
+                            placeholder="email@example.com"
+                            class="h-11 w-full rounded border px-3"
+                        />
+                        <InputError :message="form.errors.email" />
                     </div>
-                    <Input
-                        id="password"
-                        type="password"
-                        required
-                        :tabindex="2"
-                        autocomplete="current-password"
-                        v-model="form.password"
-                        placeholder="Password"
-                    />
-                    <InputError :message="form.errors.password" />
-                </div>
 
-                <div class="flex items-center justify-between">
-                    <Label for="remember" class="flex items-center space-x-3">
-                        <Checkbox id="remember" v-model="form.remember" :tabindex="3" />
-                        <span>Remember me</span>
-                    </Label>
-                </div>
+                    <div class="grid gap-2">
+                        <div class="flex items-center justify-between">
+                            <label for="password" class="text-sm font-medium">Mot de passe</label>
+                            <TextLink v-if="canResetPassword" :href="route('password.request')" class="text-sm" :tabindex="5">
+                                Mot de passe oublié ?
+                            </TextLink>
+                        </div>
+                        <input
+                            id="password"
+                            type="password"
+                            required
+                            :tabindex="2"
+                            autocomplete="current-password"
+                            v-model="form.password"
+                            placeholder="••••••••"
+                            class="h-11 w-full rounded border px-3"
+                        />
+                        <InputError :message="form.errors.password" />
+                    </div>
 
-                <Button type="submit" class="mt-4 w-full" :tabindex="4" :disabled="form.processing">
-                    <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
-                    Log in
-                </Button>
+                    <label class="flex items-center gap-2 text-sm">
+                        <input id="remember" type="checkbox" v-model="form.remember" :tabindex="3" />
+                        Se souvenir de moi
+                    </label>
+
+                    <button
+                        type="submit"
+                        class="mt-2 w-full rounded bg-black py-3 font-semibold text-white"
+                        :tabindex="4"
+                        :disabled="form.processing"
+                    >
+                        Se connecter
+                    </button>
+
+                    <div class="text-center text-sm text-gray-600">
+                        Pas de compte ? <TextLink :href="route('register')" :tabindex="5">Créer un compte</TextLink>
+                    </div>
+                </form>
             </div>
-
-            <div class="text-center text-sm text-muted-foreground">
-                Don't have an account?
-                <TextLink :href="route('register')" :tabindex="5">Sign up</TextLink>
-            </div>
-        </form>
-    </AuthBase>
+        </div>
+    </SiteLayout>
 </template>

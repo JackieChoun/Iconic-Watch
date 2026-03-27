@@ -37,7 +37,12 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return to_route('profile.edit');
+        if (Auth::user()->id_role === 2) {
+            return to_route('profile.edit'); // admin
+        }
+
+        return to_route('profile'); // user normal
+
     }
 
     /**

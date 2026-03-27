@@ -64,7 +64,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                 </Link>
             </div>
 
-            <table class="w-full border text-left">
+            <table class="w-full overflow-x-auto border text-left">
                 <thead>
                     <tr class="bg-gray-200">
                         <th class="border px-4 py-2">ID</th>
@@ -90,11 +90,15 @@ const breadcrumbs: BreadcrumbItem[] = [
                         <td class="border px-4 py-2 text-center">
                             <Link
                                 :href="route('admin.articles.edit', article.id_article)"
-                                class="mr-2 rounded bg-yellow-500 px-3 py-1 text-white hover:bg-yellow-600"
+                                class="mr-2 rounded bg-yellow-500 px-3 py-1 text-white transition-colors hover:bg-yellow-600"
                             >
-                                Éditer
+                                Modifier
                             </Link>
-                            <button @click="deleteArticle(article.id_article)" class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">
+                            <button
+                                @click="deleteArticle(article.id_article)"
+                                title="Supprimer cet article"
+                                class="cursor-pointer rounded bg-red-600 px-3 py-1 text-white transition-colors hover:bg-red-700"
+                            >
                                 Supprimer
                             </button>
                         </td>

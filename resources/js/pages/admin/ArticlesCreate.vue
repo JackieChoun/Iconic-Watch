@@ -9,19 +9,16 @@ import { ref } from 'vue';
 // -----------------
 interface Film {
     id: number;
-    tmdb_id: number;
     title: string;
 }
-
 interface Marque {
     id_marque: number;
     nom_marque: string;
 }
-
 interface Montre {
     id_montre: number;
     info_montre: string;
-    marque: Marque;
+    marque?: Marque;
 }
 
 interface ArticleForm {
@@ -60,7 +57,7 @@ const form = useForm<ArticleForm>({
 });
 
 // -----------------
-// Previews
+// Previews et gestion images
 // -----------------
 const affichePreview = ref<string | null>(null);
 const montrePreviews = ref<string[]>([]);
@@ -68,21 +65,33 @@ const montrePreviews = ref<string[]>([]);
 function handleAffiche(e: Event) {
     const target = e.target as HTMLInputElement;
     if (target.files && target.files[0]) {
-        const file = target.files[0];
-        form.affiche_film = file;
-        affichePreview.value = URL.createObjectURL(file);
+        form.affiche_film = target.files[0];
+        affichePreview.value = URL.createObjectURL(target.files[0]);
     }
 }
 
-function handleMontreImages(e: Event) {
+function addImageInput() {
+    if (form.images_montre.length < 4) {
+        form.images_montre.push(null as unknown as File);
+    }
+}
+
+function handleImageChange(e: Event, index: number) {
     const target = e.target as HTMLInputElement;
-    if (target.files) {
-        const files = Array.from(target.files);
-        form.images_montre = files;
-        montrePreviews.value = files.map((f) => URL.createObjectURL(f));
+    if (target.files && target.files[0]) {
+        form.images_montre[index] = target.files[0];
+        montrePreviews.value[index] = URL.createObjectURL(target.files[0]);
     }
 }
 
+function removeImage(index: number) {
+    form.images_montre.splice(index, 1);
+    montrePreviews.value.splice(index, 1);
+}
+
+// -----------------
+// Soumission
+// -----------------
 function submit() {
     form.post(route('admin.articles.store'));
 }
@@ -121,16 +130,22 @@ const breadcrumbs: BreadcrumbItem[] = [
                     <select v-model="form.id_montre" class="w-full rounded border p-2">
                         <option disabled value="">-- Sélectionner une montre --</option>
                         <option v-for="montre in montres" :key="montre.id_montre" :value="montre.id_montre">
-                            {{ montre.info_montre }} ({{ montre.marque.nom_marque }})
+                            {{ montre.info_montre }} ({{ montre.marque?.nom_marque }})
                         </option>
                     </select>
                     <span v-if="form.errors.id_montre" class="text-sm text-red-500">{{ form.errors.id_montre }}</span>
                 </div>
 
-                <!-- Affiche du film -->
+                <!-- Affiche film -->
                 <div>
                     <label class="block font-medium">Affiche du film</label>
-                    <input type="file" @change="handleAffiche" accept="image/*" class="mt-2" />
+                    <label
+                        for="affiche_film"
+                        class="inline-flex cursor-pointer items-center rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-100"
+                    >
+                        Choisir une image
+                    </label>
+                    <input type="file" @change="handleAffiche" accept="image/*" class="hidden" id="affiche_film" />
                     <div v-if="affichePreview" class="mt-2">
                         <img :src="affichePreview" class="h-40 rounded shadow" />
                     </div>
@@ -140,11 +155,23 @@ const breadcrumbs: BreadcrumbItem[] = [
                 <!-- Images montre -->
                 <div>
                     <label class="block font-medium">Images de la montre (max 4)</label>
-                    <input type="file" multiple @change="handleMontreImages" accept="image/*" class="mt-2" />
-                    <div class="mt-2 flex gap-2">
-                        <img v-for="(src, i) in montrePreviews" :key="i" :src="src" class="h-24 rounded shadow" />
+                    <div class="mt-2 flex">
+                        <div v-for="(img, i) in form.images_montre" :key="i">
+                            <button type="button" @click="removeImage(i)" class="mr-2 rounded bg-red-600 px-1 text-white">X</button>
+                            <input type="file" accept="image/*" @change="(e) => handleImageChange(e, i)" class="mb-2" />
+                            <img v-if="montrePreviews[i]" :src="montrePreviews[i]" class="h-24 w-24 rounded" />
+                        </div>
+
+                        <button
+                            type="button"
+                            @click="addImageInput"
+                            class="flex h-24 w-24 items-center justify-center rounded border text-gray-500 hover:bg-gray-100"
+                            v-if="form.images_montre.length < 4"
+                        >
+                            +
+                        </button>
                     </div>
-                    <span v-if="form.errors['images_montre.*']" class="text-sm text-red-500">{{ form.errors['images_montre.*'] }}</span>
+                    <span v-if="form.errors['images_montre']" class="text-sm text-red-500">{{ form.errors['images_montre'] }}</span>
                 </div>
 
                 <!-- Mouvement -->
@@ -186,7 +213,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                     >
                         Créer
                     </button>
-                    <Link :href="route('admin.articles.index')" class="rounded bg-gray-300 px-4 py-2 font-semibold hover:bg-gray-400"> Annuler </Link>
+                    <Link :href="route('admin.articles.index')" class="rounded bg-gray-300 px-4 py-2 font-semibold hover:bg-gray-400">Annuler</Link>
                 </div>
             </form>
         </div>

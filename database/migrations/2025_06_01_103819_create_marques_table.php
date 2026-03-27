@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('films', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('tmdb_id')->unique();
-            // $table->string('title')->nullable();   // si tu veux conserver des infos locales
+        Schema::create('marques', function (Blueprint $table) {
+            $table->id('id_marque');
+            $table->string('nom_marque', 50);
+            $table->string('photo_marque')->nullable();
+            $table->string('logo_marque')->nullable();
             $table->timestamps();
         });
-        
     }
 
     /**
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('films');
+        Schema::dropIfExists('marques');
     }
 };

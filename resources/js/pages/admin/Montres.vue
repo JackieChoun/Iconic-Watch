@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link, router } from '@inertiajs/vue3';
@@ -118,6 +118,7 @@ function openImageDialog(image: string) {
             <DialogContent class="max-w-3xl">
                 <DialogHeader>
                     <DialogTitle>Image de la montre</DialogTitle>
+                    <DialogDescription class="sr-only"> Aperçu agrandi de la montre sélectionnée. </DialogDescription>
                 </DialogHeader>
                 <div class="flex justify-center">
                     <img v-if="selectedImage" :src="selectedImage" alt="Montre agrandie" class="max-h-[80vh] rounded-lg shadow-lg" />

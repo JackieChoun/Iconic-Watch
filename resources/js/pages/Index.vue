@@ -6,9 +6,9 @@ import { Link } from '@inertiajs/vue3';
 
 <template>
     <SiteLayout>
-        <div id="Accueil" class="container text-center">
-            <div id="txtBienvenu" class="px-[10%] py-10">
-                <p class="text-3xl leading-relaxed font-bold">
+        <div id="Accueil" class="wrapper text-center">
+            <div class="px-[10%] py-10">
+                <p class="text-3xl font-bold tracking-wide">
                     Dans l’univers du cinéma, la montre est l’accessoire discret et pourtant emblématique d’une époque et de la personnalité de son
                     protagoniste. La montre sublime le caractère, du chic à la James Bond au futurisme du Lieutenant Ellen Ripley de Alien. Ce site
                     retrace les montres portées par tous ces héros dans cette infinité d’univers que nous offrent films et séries.

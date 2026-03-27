@@ -16,7 +16,7 @@ const page = usePage();
 </script>
 
 <template>
-    <!-- Titre dynamique (si ton contrôleur envoie `title`) -->
+    <!-- Titre dynamique (si le contrôleur envoie `title`) -->
     <Head :title="page.props.title ? page.props.title + ' (admin)' : 'Admin'" />
 
     <AppLayout :breadcrumbs="breadcrumbs">

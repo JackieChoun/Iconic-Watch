@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('marques', function (Blueprint $table) {
-            $table->id('id_marque');
-            $table->string('nom_marque', 50);
-            $table->string('photo_marque')->nullable();
+        Schema::create('films', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('tmdb_id')->unique();
+            $table->string('title')->nullable(); 
+            $table->timestamps();
         });
+        
     }
 
     /**
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('marques');
+        Schema::dropIfExists('films');
     }
 };

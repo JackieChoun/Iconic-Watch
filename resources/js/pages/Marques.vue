@@ -8,9 +8,9 @@ const { marques } = defineProps(['marques']);
 
 <template>
     <SiteLayout>
-        <div class="container pt-4">
+        <div class="wrapper pt-4">
             <!-- Bouton retour -->
-            <a href="javascript:history.back()" class="absolute z-10 ml-50 hidden text-4xl underline lg:block"> Retour </a>
+            <a href="javascript:history.back()" class="absolute z-10 ml-50 hidden text-4xl underline lg:block">← Retour </a>
 
             <!-- Titre -->
             <h2 class="mb-8 text-center text-6xl font-bold">MARQUES</h2>

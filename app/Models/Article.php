@@ -10,6 +10,8 @@ class Article extends Model
     use HasFactory;
 
     protected $primaryKey = 'id_article'; // Clé primaire personnalisée
+    protected $keyType = 'int';
+    public $incrementing = true;
 
     protected $fillable = [
         'affiche_film',
@@ -28,6 +30,12 @@ class Article extends Model
         'en_vente' => 'boolean',
     ];
 
+    protected $appends = [
+    'affiche_film_url',
+    'images_montre_urls',
+    ];
+
+
     /* Relations */
 
     // Un article est lié à un film
@@ -40,5 +48,36 @@ class Article extends Model
     public function montre()
     {
         return $this->belongsTo(Montre::class, 'id_montre');
+    }
+
+        public function getAfficheFilmUrlAttribute()
+    {
+        return $this->affiche_film
+            ? asset('storage/' . $this->affiche_film)
+            : null;
+    }
+
+    public function getImagesMontreUrlsAttribute()
+    {
+        return collect($this->images_montre ?? [])
+            ->map(fn ($img) => asset('storage/' . $img))
+            ->values();
+    }
+
+    public function auteurs() {
+        return $this->belongsToMany(User::class, 'ecrire', 'id_article', 'user_id');
+    }
+
+    public function commentaires() {
+        return $this->hasMany(Commentaire::class, 'id_article');
+    }
+
+    public function notes() {
+        return $this->belongsToMany(Montre::class, 'noter', 'id_article', 'id_montre')->withPivot('note_montre');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'id_article';
     }
 }

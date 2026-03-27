@@ -1,6 +1,7 @@
-<script setup>
+<script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+import { ref } from 'vue';
 
 const breadcrumbs = [
     { title: 'Dashboard', href: '/dashboard' },
@@ -13,13 +14,27 @@ const props = defineProps(['marques']);
 const form = useForm({
     info_montre: '',
     id_marque: '',
-    image_montre: null,
+    image_montre: null as File | null,
 });
 
 function createMontre() {
     form.post(route('admin.montres.store'), {
         forceFormData: true, // indispensable pour l’upload
     });
+}
+
+// Pour les aperçus
+const imagePreview = ref<string | null>(null);
+
+function handlePhotoChange(e: Event) {
+    const target = e.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+        form.image_montre = target.files[0];
+        imagePreview.value = URL.createObjectURL(form.image_montre);
+    } else {
+        form.image_montre = null;
+        imagePreview.value = null;
+    }
 }
 </script>
 
@@ -63,15 +78,18 @@ function createMontre() {
 
                 <!-- Image -->
                 <div>
-                    <label for="image_montre" class="block text-lg font-medium text-gray-700">Image</label>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        @change="(e) => (form.image_montre = e.target.files[0])"
-                        class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:rounded-md file:border-0 file:bg-indigo-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-indigo-700 hover:file:bg-indigo-100"
-                        required
-                    />
+                    <label class="block text-lg font-medium text-gray-700">Image</label>
+                    <label
+                        for="image_montre"
+                        class="inline-flex cursor-pointer items-center rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-100"
+                    >
+                        Choisir une image
+                    </label>
+                    <input type="file" accept="image/*" @change="handlePhotoChange" class="hidden" id="image_montre" required />
                     <p v-if="form.errors.image_montre" class="text-sm text-red-500">{{ form.errors.image_montre }}</p>
+                    <div v-if="imagePreview" class="mt-3">
+                        <img :src="imagePreview" alt="Aperçu image" class="max-h-40 rounded shadow" />
+                    </div>
                 </div>
 
                 <!-- Bouton -->

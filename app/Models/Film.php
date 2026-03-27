@@ -9,7 +9,7 @@ class Film extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['tmdb_id'];
+    protected $fillable = ['tmdb_id', 'title'];
 
     // 🔗 Un film peut avoir plusieurs articles
     public function articles()

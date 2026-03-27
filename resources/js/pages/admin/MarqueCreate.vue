@@ -76,12 +76,13 @@ function submit() {
                 <!-- Image / Photo -->
                 <div>
                     <label class="mb-1 block font-medium text-gray-700">Image de montre</label>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        @change="handlePhotoChange"
-                        class="block w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
-                    />
+                    <label
+                        for="fichiermontre"
+                        class="inline-flex cursor-pointer items-center rounded-full bg-blue-50 px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-100"
+                    >
+                        Choisir une image
+                    </label>
+                    <input type="file" accept="image/*" @change="handlePhotoChange" id="fichiermontre" class="hidden" />
                     <p v-if="form.errors.photo" class="mt-1 text-sm text-red-600">
                         {{ form.errors.photo }}
                     </p>
@@ -93,12 +94,13 @@ function submit() {
                 <!-- Logo -->
                 <div>
                     <label class="mb-1 block font-medium text-gray-700">Logo marque</label>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        @change="handleLogoChange"
-                        class="block w-full text-sm text-gray-500 file:mr-4 file:rounded-full file:border-0 file:bg-blue-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-blue-700 hover:file:bg-blue-100"
-                    />
+                    <label
+                        for="fichierlogo"
+                        class="inline-flex cursor-pointer items-center rounded-full bg-green-50 px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-green-100"
+                    >
+                        Choisir un logo
+                    </label>
+                    <input type="file" accept="image/*" @change="handleLogoChange" class="hidden" id="fichierlogo" />
                     <p v-if="form.errors.logo" class="mt-1 text-sm text-red-600">
                         {{ form.errors.logo }}
                     </p>

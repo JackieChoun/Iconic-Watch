@@ -44,7 +44,7 @@ onMounted(async () => {
             <a href="javascript:history.back()" class="absolute z-10 ml-50 hidden text-4xl underline lg:block">← Retour </a>
 
             <!-- Titre -->
-            <h2 class="mb-8 text-center text-6xl font-bold">FILMS</h2>
+            <h2 class="mb-3 text-center text-4xl font-bold lg:mb-8 lg:text-6xl">FILMS</h2>
 
             <!-- Alphabet -->
             <nav class="pointer mb-8 flex flex-wrap justify-center gap-2">
@@ -68,19 +68,22 @@ onMounted(async () => {
             </nav>
 
             <!-- Liste filtrée -->
-            <section id="articleFilm" class="flex flex-col">
-                <div v-for="film in filteredFilms" :key="film.id" class="my-[1%] mr-[20%] flex items-start">
-                    <Link :href="route('articles.film', { tmdbId: film.id, slug: formatTitle(film.title) })">
+            <section id="articleFilm" class="">
+                <div v-for="film in filteredFilms" :key="film.id" class="py-4 lg:mr-[20%]">
+                    <Link
+                        :href="route('articles.film', { tmdbId: film.id, slug: formatTitle(film.title) })"
+                        class="flex flex-col items-center justify-center gap-4 lg:flex-row lg:items-start"
+                    >
                         <img
                             :src="`https://image.tmdb.org/t/p/w300${film.poster_path}`"
                             :alt="`Affiche de ${film.title}`"
                             loading="lazy"
-                            class="float-left mr-[1%] transition-transform duration-200 ease-in-out hover:scale-110"
+                            class="transition-transform duration-200 ease-in-out hover:scale-110 lg:float-left lg:mr-[1%]"
                         />
 
                         <div>
-                            <h3 class="text-4xl font-semibold">{{ film.title }}</h3>
-                            <p class="text-xl">{{ film.overview }}</p>
+                            <h3 class="text-center text-2xl font-semibold md:text-start md:text-4xl">{{ film.title }}</h3>
+                            <p class="text-center md:text-start md:text-xl">{{ film.overview }}</p>
                         </div>
                     </Link>
                 </div>

@@ -16,7 +16,7 @@ const props = defineProps({
             <a href="javascript:history.back()" class="absolute z-10 ml-50 hidden text-4xl underline lg:block">← Retour</a>
 
             <!-- Titre -->
-            <h2 class="mb-8 text-center text-6xl font-bold uppercase">{{ marque.nom_marque }}</h2>
+            <h2 class="mb-3 text-center text-4xl font-bold uppercase lg:mb-8 lg:text-6xl">{{ marque.nom_marque }}</h2>
 
             <!-- Grille 2 colonnes -->
             <div class="grid grid-cols-1 md:grid-cols-2">
@@ -28,7 +28,7 @@ const props = defineProps({
                             :alt="montre.info_montre"
                             class="h-auto w-[75%] cursor-pointer transition hover:scale-105"
                         />
-                        <h3 class="mt-1 mb-5 text-3xl font-bold">{{ montre.info_montre }}</h3>
+                        <h3 class="mt-1 mb-5 text-2xl font-bold lg:text-3xl">{{ montre.info_montre }}</h3>
                     </Link>
                 </div>
             </div>

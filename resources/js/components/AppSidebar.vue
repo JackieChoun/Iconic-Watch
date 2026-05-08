@@ -43,6 +43,7 @@ const mainNavItems: NavItem[] = [
         title: 'Site Web',
         href: route('accueil'),
         icon: LinkIcon,
+        external: true,
     },
 ];
 

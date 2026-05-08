@@ -26,9 +26,13 @@ const submit = () => {
     <SiteLayout>
         <Head title="Connexion" />
 
-        <div class="wrapper py-25">
+        <div class="wrapper pt-4">
+            <!-- Bouton retour -->
+            <a href="javascript:history.back()" class="absolute z-10 ml-50 hidden text-4xl underline lg:block">← Retour </a>
+
+            <!-- Titre -->
+            <h2 class="mb-3 text-center text-4xl font-bold lg:mb-8 lg:text-6xl">Connexion</h2>
             <div class="mx-auto max-w-md rounded-xl border bg-white p-8 shadow">
-                <h1 class="text-3xl font-bold">Connexion</h1>
                 <p class="mt-2 text-gray-600">Entrez votre email et votre mot de passe.</p>
 
                 <div v-if="status" class="mt-4 rounded bg-green-50 p-3 text-sm font-medium text-green-700">

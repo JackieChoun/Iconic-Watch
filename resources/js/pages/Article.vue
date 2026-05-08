@@ -145,7 +145,7 @@ const brandTitle = computed(() => props.article.montre?.marque?.nom_marque ?? 'M
 
             <!-- Galerie -->
             <div class="wrapper">
-                <div v-if="gallery.length" class="mt-8 flex w-full justify-between gap-4 overflow-x-auto">
+                <div v-if="gallery.length" class="mt-4 flex w-full justify-between overflow-x-auto md:mt-8 md:gap-4">
                     <button
                         v-for="(img, i) in gallery"
                         :key="i"
@@ -159,8 +159,8 @@ const brandTitle = computed(() => props.article.montre?.marque?.nom_marque ?? 'M
                 </div>
                 <!-- Contenu -->
                 <div class="lg:col-span-2">
-                    <h1 class="text-4xl font-bold">{{ watchTitle }}</h1>
-                    <p class="mt-2 text-xl text-gray-600">
+                    <h2 class="py-3 text-4xl font-bold lg:mb-8 lg:text-6xl">{{ watchTitle }}</h2>
+                    <p class="mt-2 text-gray-600 lg:text-xl">
                         Dans <span class="font-semibold">{{ filmTitle }}</span>
                     </p>
 
@@ -194,7 +194,7 @@ const brandTitle = computed(() => props.article.montre?.marque?.nom_marque ?? 'M
 
                 <!-- Description -->
                 <div class="mt-8">
-                    <p v-if="article.description" class="px-40 text-center text-xl leading-relaxed font-semibold whitespace-pre-line">
+                    <p v-if="article.description" class="text-center text-xl leading-relaxed font-semibold whitespace-pre-line lg:px-40">
                         {{ article.description }}
                     </p>
                     <p v-else class="text-gray-500">Description à venir.</p>

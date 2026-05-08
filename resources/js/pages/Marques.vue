@@ -13,16 +13,20 @@ const { marques } = defineProps(['marques']);
             <a href="javascript:history.back()" class="absolute z-10 ml-50 hidden text-4xl underline lg:block">← Retour </a>
 
             <!-- Titre -->
-            <h2 class="mb-8 text-center text-6xl font-bold">MARQUES</h2>
-            <div class="flex flex-wrap justify-evenly">
+            <h2 class="mb-3 text-center text-4xl font-bold lg:mb-8 lg:text-6xl">MARQUES</h2>
+            <div class="flex flex-col items-center justify-center lg:flex-row lg:flex-wrap lg:justify-evenly">
                 <Link
                     :href="route('marques.show', marque.id_marque)"
                     v-for="marque in marques"
                     :key="marque.id_marque"
-                    class="group relative my-6 flex rounded-xl"
+                    class="group relative my-3 flex items-center justify-center rounded-xl lg:my-6"
                 >
                     <!-- Image -->
-                    <img :src="marque.photo_marque" :alt="marque.nom_marque" class="w-100 transition-transform duration-200 group-hover:scale-110" />
+                    <img
+                        :src="marque.photo_marque"
+                        :alt="marque.nom_marque"
+                        class="h-auto w-80 transition-transform duration-200 group-hover:scale-110 md:w-100"
+                    />
 
                     <!-- Titre -->
                     <img

@@ -16,10 +16,16 @@ const page = usePage<SharedData>();
         <SidebarMenu>
             <SidebarMenuItem v-for="item in items" :key="item.title" class="flex flex-col gap-3">
                 <SidebarMenuButton as-child :is-active="item.href === page.url" :tooltip="item.title">
-                    <Link :href="item.href">
+                    <component
+                        :is="item.external ? 'a' : Link"
+                        :href="item.href"
+                        :target="item.external ? '_blank' : undefined"
+                        :rel="item.external ? 'noopener noreferrer' : undefined"
+                    >
                         <component :is="item.icon" />
                         <span>{{ item.title }}</span>
-                    </Link>
+                        <span v-if="item.external" class="text-xs opacity-60">↗</span>
+                    </component>
                 </SidebarMenuButton>
             </SidebarMenuItem>
         </SidebarMenu>

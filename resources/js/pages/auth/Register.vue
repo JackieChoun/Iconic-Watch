@@ -24,7 +24,7 @@ const submit = () => {
 
         <div class="wrapper py-10">
             <div class="mx-auto max-w-md rounded-xl border bg-white p-8 shadow">
-                <h1 class="text-3xl font-bold">Créer un compte</h1>
+                <h1 class="text-2xl font-bold">Créer un compte</h1>
                 <p class="mt-2 text-gray-600">Quelques infos et c’est bon.</p>
 
                 <form @submit.prevent="submit" class="mt-8 flex flex-col gap-6">

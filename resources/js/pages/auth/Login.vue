@@ -83,7 +83,7 @@ const submit = () => {
 
                     <button
                         type="submit"
-                        class="mt-2 w-full rounded bg-black py-3 font-semibold text-white"
+                        class="mt-2 w-full cursor-pointer rounded bg-black py-3 font-semibold text-white"
                         :tabindex="4"
                         :disabled="form.processing"
                     >

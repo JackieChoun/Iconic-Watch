@@ -12,6 +12,22 @@ function formatTitle(title) {
     return title.replace(/\s+/g, '-').toLowerCase();
 }
 
+// --- chargement des films ---
+const loading = ref(true);
+
+async function fetchMovies() {
+    loading.value = true;
+
+    try {
+        const res = await fetch('/films/movies');
+        films.value = await res.json();
+    } catch (e) {
+        console.error('Impossible de charger les films :', e);
+    } finally {
+        loading.value = false;
+    }
+}
+
 /* Normalise une chaîne : majuscules + suppression des accents
    → "Été" devient "ETE"  */
 function normalize(str) {
@@ -27,14 +43,7 @@ const filteredFilms = computed(() =>
 );
 
 // --- récupération des films ---
-onMounted(async () => {
-    try {
-        const res = await fetch('/films/movies');
-        films.value = await res.json();
-    } catch (e) {
-        console.error('Impossible de charger les films :', e);
-    }
-});
+onMounted(fetchMovies);
 </script>
 
 <template>
@@ -82,14 +91,18 @@ onMounted(async () => {
                         />
 
                         <div>
-                            <h3 class="text-center text-2xl font-semibold md:text-start md:text-4xl">{{ film.title }}</h3>
+                            <h3 class="mb-3 text-center text-2xl font-semibold md:text-start md:text-4xl">{{ film.title }}</h3>
                             <p class="text-center md:text-start md:text-xl">{{ film.overview }}</p>
                         </div>
                     </Link>
                 </div>
 
                 <!-- Message si aucun film -->
-                <p v-if="filteredFilms.length === 0" class="text-center text-gray-500">Aucun film pour la lettre « {{ selectedLetter || '…' }} ».</p>
+                <div v-if="loading" class="flex justify-center py-20">
+                    <div class="h-12 w-12 animate-spin rounded-full border-4 border-black border-t-transparent"></div>
+                </div>
+
+                <p v-else-if="!filteredFilms.length">Aucun film</p>
             </section>
         </div>
     </SiteLayout>

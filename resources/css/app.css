@@ -190,3 +190,8 @@ h2,
 h3 {
     font-family: 'Montserrat', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
+#nprogress .bar {
+    background: black !important;
+    height: 3px;
+}

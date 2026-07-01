@@ -26,7 +26,7 @@ const submit = () => {
     <SiteLayout>
         <Head title="Connexion" />
 
-        <div class="wrapper pt-4">
+        <div class="wrapper py-10">
             <!-- Bouton retour -->
             <a href="javascript:history.back()" class="absolute z-10 ml-50 hidden text-4xl underline lg:block">← Retour </a>
 

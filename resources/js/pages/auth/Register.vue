@@ -23,8 +23,9 @@ const submit = () => {
         <Head title="Inscription" />
 
         <div class="wrapper py-10">
+            <a href="javascript:history.back()" class="absolute z-10 ml-50 hidden text-4xl underline lg:block">← Retour </a>
+            <h1 class="mb-3 text-center text-4xl font-bold lg:mb-8 lg:text-6xl">Créer un compte</h1>
             <div class="mx-auto max-w-md rounded-xl border bg-white p-8 shadow">
-                <h1 class="text-2xl font-bold">Créer un compte</h1>
                 <p class="mt-2 text-gray-600">Quelques infos et c’est bon.</p>
 
                 <form @submit.prevent="submit" class="mt-8 flex flex-col gap-6">
@@ -89,7 +90,12 @@ const submit = () => {
                         <InputError :message="form.errors.password_confirmation" />
                     </div>
 
-                    <button type="submit" class="mt-2 w-full rounded bg-black py-3 font-semibold text-white" tabindex="5" :disabled="form.processing">
+                    <button
+                        type="submit"
+                        class="mt-2 w-full cursor-pointer rounded bg-black py-3 font-semibold text-white"
+                        tabindex="5"
+                        :disabled="form.processing"
+                    >
                         Créer le compte
                     </button>
 

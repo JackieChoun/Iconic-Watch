@@ -103,7 +103,11 @@ function submitSearch() {
                                 >
                             </li>
                             <li v-if="user">
-                                <Link method="post" as="button" :href="route('logout')" class="rounded px-5 py-3 md:hover:bg-[gainsboro]"
+                                <Link
+                                    method="post"
+                                    as="button"
+                                    :href="route('logout')"
+                                    class="cursor-pointer rounded px-5 py-3 md:hover:bg-[gainsboro]"
                                     >Déconnexion</Link
                                 >
                             </li>

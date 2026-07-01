@@ -1,12 +1,8 @@
 <script setup lang="ts">
 import InputError from '@/components/InputError.vue';
 import TextLink from '@/components/TextLink.vue';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import AuthLayout from '@/layouts/AuthLayout.vue';
+import SiteLayout from '@/layouts/SiteLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
-import { LoaderCircle } from 'lucide-vue-next';
 
 defineProps<{
     status?: string;
@@ -22,33 +18,56 @@ const submit = () => {
 </script>
 
 <template>
-    <AuthLayout title="Forgot password" description="Enter your email to receive a password reset link">
-        <Head title="Forgot password" />
+    <SiteLayout>
+        <Head title="Mot de passe oublié" />
 
-        <div v-if="status" class="mb-4 text-center text-sm font-medium text-green-600">
-            {{ status }}
-        </div>
+        <div class="wrapper py-10">
+            <!-- Retour -->
+            <a href="javascript:history.back()" class="absolute z-10 ml-50 hidden text-4xl underline lg:block"> ← Retour </a>
 
-        <div class="space-y-6">
-            <form @submit.prevent="submit">
-                <div class="grid gap-2">
-                    <Label for="email">Email address</Label>
-                    <Input id="email" type="email" name="email" autocomplete="off" v-model="form.email" autofocus placeholder="email@example.com" />
-                    <InputError :message="form.errors.email" />
+            <!-- Titre -->
+            <h2 class="mb-3 text-center text-4xl font-bold lg:mb-8 lg:text-6xl">Mot de passe oublié</h2>
+
+            <div class="mx-auto max-w-md rounded-xl border bg-white p-8 shadow">
+                <p class="text-gray-600">
+                    Saisissez votre adresse email. Si un compte y est associé, vous recevrez un lien permettant de réinitialiser votre mot de passe.
+                </p>
+
+                <div v-if="status" class="mt-4 rounded bg-green-50 p-3 text-sm font-medium text-green-700">
+                    {{ status }}
                 </div>
 
-                <div class="my-6 flex items-center justify-start">
-                    <Button class="w-full" :disabled="form.processing">
-                        <LoaderCircle v-if="form.processing" class="h-4 w-4 animate-spin" />
-                        Email password reset link
-                    </Button>
-                </div>
-            </form>
+                <form @submit.prevent="submit" class="mt-8 flex flex-col gap-6">
+                    <div class="grid gap-2">
+                        <label for="email" class="text-sm font-medium"> Email </label>
 
-            <div class="space-x-1 text-center text-sm text-muted-foreground">
-                <span>Or, return to</span>
-                <TextLink :href="route('login')">log in</TextLink>
+                        <input
+                            id="email"
+                            type="email"
+                            v-model="form.email"
+                            autocomplete="email"
+                            autofocus
+                            placeholder="email@example.com"
+                            class="h-11 w-full rounded border px-3"
+                        />
+
+                        <InputError :message="form.errors.email" />
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="mt-2 w-full cursor-pointer rounded bg-black py-3 font-semibold text-white"
+                        :disabled="form.processing"
+                    >
+                        {{ form.processing ? 'Envoi...' : 'Envoyer le lien de réinitialisation' }}
+                    </button>
+                </form>
+
+                <div class="mt-6 text-center text-sm text-gray-600">
+                    <span>Retour à la </span>
+                    <TextLink :href="route('login')"> connexion </TextLink>
+                </div>
             </div>
         </div>
-    </AuthLayout>
+    </SiteLayout>
 </template>

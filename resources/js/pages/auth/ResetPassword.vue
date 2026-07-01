@@ -3,7 +3,7 @@ import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import AuthLayout from '@/layouts/AuthLayout.vue';
+import SiteLayout from '@/layouts/SiteLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
 
@@ -31,11 +31,11 @@ const submit = () => {
 </script>
 
 <template>
-    <AuthLayout title="Reset password" description="Please enter your new password below">
+    <SiteLayout>
         <Head title="Reset password" />
 
         <form @submit.prevent="submit">
-            <div class="grid gap-6">
+            <div class="wrapper grid gap-6 py-10">
                 <div class="grid gap-2">
                     <Label for="email">Email</Label>
                     <Input id="email" type="email" name="email" autocomplete="email" v-model="form.email" class="mt-1 block w-full" readonly />
@@ -77,5 +77,5 @@ const submit = () => {
                 </Button>
             </div>
         </form>
-    </AuthLayout>
+    </SiteLayout>
 </template>

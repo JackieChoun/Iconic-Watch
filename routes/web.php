@@ -9,6 +9,11 @@ use App\Http\Controllers\{ IndexController, FilmsController, MarqueController, A
 //     return Inertia::render('Welcome');
 // })->name('home');
 
+// Route pour les mentions légales
+Route::get('/ML', function () {
+    return Inertia::render('ML');
+})->name('ML');
+
 // Route pour la page d'accueil
 Route::get('/', [IndexController::class, 'index'])->name('accueil');
 
@@ -71,6 +76,8 @@ Route::middleware(['auth'])->group(function () {
         return Inertia::render('Profile');
     })->name('profile');
 });
+
+
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
